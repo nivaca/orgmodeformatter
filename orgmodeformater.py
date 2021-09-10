@@ -2,20 +2,19 @@ import os
 import binascii
 from shutil import copyfile
 
-orgtags = ':latin:'
-directory = ''  # local directory
-extensions = ['.org']
+orgtags: str = ':latin:'
+directory: str = ''  # local directory
+extensions: list[str] = ['.org']
 
 
-def generate_id():
+def generate_id() -> str:
     def genhex(n):
         return str(binascii.b2a_hex(os.urandom(n)).decode())
-
     return f"{genhex(4)}-{genhex(2)}-{genhex(2)}-{genhex(2)}-{genhex(6)}".lower()
 
 
-def get_files():
-    files = []
+def get_files() -> list[str]:
+    files: list[str] = []
     allfilenames = os.listdir(directory + '.')
     for fi in allfilenames:
         ext = os.path.splitext(fi)[1]
@@ -26,7 +25,7 @@ def get_files():
     return files
 
 
-def formathead():
+def formathead() -> str:
     return f":PROPERTIES:\n" \
            f":ID:       {generate_id()}\n" \
            f":END:\n" \
